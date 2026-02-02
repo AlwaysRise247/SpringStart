@@ -13,3 +13,9 @@
 
 
 <!-- SEARCH FOR spring 6 bean documentation xml ON google to get this bean tag-->
+
+<!-- Bean scope defines how many objects Spring creates and when -->
+        <!-- singleton (default): one object per container, created at startup -->
+        <!-- prototype: new object created every time getBean() is called -->
+        <!-- Scope is controlled using the 'scope' attribute in the bean tag -->
+
