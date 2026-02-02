@@ -1,0 +1,42 @@
+package org.Spring;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+//        System.out.println( "Hello World!" );
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+        Alien obj = (Alien) context.getBean("alien");   // getting object for class alien
+        // Alien obj = context.getBean(Alien.class);             // THIS ALSO WORKS
+        obj.code();
+
+
+
+    }
+}
+
+
+/*
+
+Here we are seeing the first method..... Using XML
+What's happening ->
+// Alien.java is a normal POJO; it has no Spring code and does not create itself.
+// spring.xml tells Spring which class objects to create and manage as beans.
+// ApplicationContext acts as a container that reads spring.xml and creates those objects.
+// App.java asks the container for the required object instead of using `new`.
+
+
+
+There are 3 ways in which we can interact with spring, in order to inform
+it to create the objects of specified classes in the container, using ApplicationContext
+1. Using ClassPathXMLApplicationContext
+2. Using Java based configuration
+3. Using Annotations
+ */
