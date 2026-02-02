@@ -1,0 +1,26 @@
+public class App 
+{
+    public static void main( String[] args )
+    {
+//        System.out.println( "Hello World!" );
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");  // -> THIS IS WHERE OBJECT IS CREATED FOR THE FIRST TIME
+        Alien obj = (Alien) context.getBean("alien");   // getting object for class alien
+        // Alien obj = context.getBean(Alien.class);             // THIS ALSO WORKS
+        obj.code();
+
+        Alien obj2 = (Alien) context.getBean("alien");
+        obj2.code();
+        
+    }
+}
+
+
+/*
+output :
+Object Created...
+Object Created...
+
+Object has been created twice, as scope is prototype.
+
+
+*/
