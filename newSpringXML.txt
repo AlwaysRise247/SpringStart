@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+    <!--  <bean id = "alien" class = "org.Spring.Alien" scope = "prototype"> </bean> -->
+    <bean id = "alien" class = "org.Spring.Alien" >
+        <!-- ASSIGNING AGE VIA A PROPERTY TAG -->
+        <!-- <property name = "age" value = "21"> </property>    -->
+        <!-- This will assign value of 21 to age by default (Spring ki taraf se)
+            Due to this, we don't need to use this obj.setAge(21);-->
+
+
+        <!-- ASSIGNING AGE VIA A CONSTRUCTOR -->
+        <!-- <constructor-arg value = "21"/> -->             <!-- This is for single parameter constructors -->
+
+        <!-- FOR MULTI PARAMETERISED CONSTRUCTORS, WE ISE INDEXES TO DENOTE THE ORDER OF EXECUTION -->
+        <constructor-arg index = "0" value = "21"/>
+        <constructor-arg index = "1" ref = "lap1"/>
+
+
+        <!--  <property name = "laptop1" ref = "lap1">   </property>  -->
+        <!-- Spring laptop bean ka object khud create karke Alien ke andar inject karega
+          Isliye hume manually new Laptop() ya obj.setLaptop() likhne ki zarurat nahi -->
+    </bean>
+
+    <bean id = "lap1"  class = "org.Spring.Laptop" >  <!-- This creates laptop object on its own -->
+
+    </bean>
+
+</beans>
+
+
+        <!-- SEARCH FOR spring 6 bean documentation xml ON google to get this bean tag-->
+
+        <!-- Bean scope defines how many objects Spring creates and when -->
+        <!-- singleton (default): one object per container, created at startup -->
+        <!-- prototype: new object created every time getBean() is called -->
+        <!-- Scope is controlled using the 'scope' attribute in the bean tag -->
+
+        <!--
+
+        // <property> is used to inject values or object references into a bean
+        // 'value' injects primitive or String data, 'ref' injects another bean
+        // Spring creates all required objects and calls setter methods automatically
+        // This removes object creation logic from classes and enables Dependency Injection
+
+        // 'lap1' is the bean ID used by Spring to identify the Laptop object in the container
+        // <property ref="lap1"> tells Spring which object to inject
+        // The variable name (laptop1) and bean ID (lap1) are independent
+        // Spring resolves the reference and injects the object automatically
+
+
+
+
+        -->
