@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+    <!--  <bean id = "alien" class = "org.Spring.Alien" scope = "prototype"> </bean> -->
+    <bean id = "alien" class = "org.Spring.Alien" autowire="byType" >
+        <!-- ASSIGNING AGE VIA A PROPERTY TAG -->
+       <!-- <property name = "age" value = "21"> </property>    -->
+        <!-- This will assign value of 21 to age by default (Spring ki taraf se)
+            Due to this, we don't need to use this obj.setAge(21);-->
+
+
+        <!-- ASSIGNING AGE VIA A CONSTRUCTOR -->
+        <!-- <constructor-arg value = "21"/> -->             <!-- This is for single parameter constructors -->
+
+        <!-- FOR MULTI PARAMETERISED CONSTRUCTORS, WE ISE INDEXES TO DENOTE THE ORDER OF EXECUTION -->
+        <!--   <constructor-arg index = "0" value = "21"/>   -->
+          <!-- <constructor-arg index = "1" ref = "lap1"/>   -->
+
+        <!-- CONCEPT OF AUTOWITRING -->
+        <property name = "age" value = "21" />
+        <!--  <property name = "com" ref = "lap1"/>  -->
+
+
+            <!--  <property name = "laptop1" ref = "lap1">   </property>  -->
+        <!-- Spring laptop bean ka object khud create karke Alien ke andar inject karega
+          Isliye hume manually new Laptop() ya obj.setLaptop() likhne ki zarurat nahi -->
+    </bean>
+
+    <bean id = "lap1"  class = "org.Spring.Laptop"  >  <!-- This creates laptop object on its own -->
+
+    </bean>
+
+    <bean id = "com" class = "org.Spring.Desktop"  primary = "true" >  <!-- This creates desktop object on its own -->
+
+    </bean>
+
+
+
+</beans>
+
+
+<!-- SEARCH FOR spring 6 bean documentation xml ON google to get this bean tag-->
+
+        <!-- Bean scope defines how many objects Spring creates and when -->
+        <!-- singleton (default): one object per container, created at startup -->
+        <!-- prototype: new object created every time getBean() is called -->
+        <!-- Scope is controlled using the 'scope' attribute in the bean tag -->
+
+        <!--
+
+        // <property> is used to inject values or object references into a bean (Setter Injection)
+        // 'value' injects primitive or String data, 'ref' injects another bean
+        // Spring creates all required objects and calls setter methods automatically
+        // This removes object creation logic from classes and enables Dependency Injection
+
+        // 'lap1' is the bean ID used by Spring to identify the Laptop object in the container
+        // <property ref="lap1"> tells Spring which object to inject
+        // The variable name (laptop1) and bean ID (lap1) are independent
+        // Spring resolves the reference and injects the object automatically
+
+
+        // Autowire lets Spring automatically choose which dependency to inject
+        // It works based on type, name, or constructor matching
+        // If a property has an explicit 'ref', autowiring is skipped for that property
+        // Explicit dependency injection always overrides autowire
+        // ⚠️ byType works ONLY when there is ONE bean of that type
+        If there are multiple Laptop beans → Spring gets confused → exception.
+        The Solution to this confusion is the use of Primary Bean
+        // primary is used to resolve ambiguity when multiple beans of the same type exist
+        // During autowire byType, Spring injects the bean marked as primary
+        // primary works only when Spring is auto-selecting a dependency
+        // Explicit <property ref="..."> always overrides the primary bean
+
+
+        FINAL OUTPUT : (AUTOWIRE -> byType, primary bean is desktop)
+        21
+        Object Created...
+        Compiling using Desktop..
+
+        Also, if you dont want to create objects of each bean explicitly, use lazy-init = "true" , to
+        ensure that object of that bean hasn't been created explicitly.
+        Jis bean ka object nahi chahiye, us bean ke end me lazy-init = "true" add karo.
+
+
+
+
+
+        -->
